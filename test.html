@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Test</title>
+  <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="js/gaugeMeter.js"></script>
+  <link rel="stylesheet" href="css/jquery-ui.css"/>
+</head> 
+<style>
+.gaugeMeter {
+  position: Relative;
+  text-align: Center;
+  cursor: Default;
+  display: inline-block;
+  height:200px;
+}
+
+.gaugeMeter SPAN {
+  width: 54%;
+  position: Absolute;
+  display: Inline-Block;
+  color: RGBa(0,0,0,.8);
+  font-weight: 100;
+  font-family: "Open Sans", Arial;
+  overflow: Hidden;
+  white-space: NoWrap;
+  text-overflow: Ellipsis;
+  margin-left:23%;
+  margin-top:-15%;
+}
+
+
+.gaugeMeter S, .gaugeMeter U {
+  text-decoration: None;
+  font-size: .70em;
+  font-weight: 180;
+  opacity: .6;
+}
+</style>
+<body>
+
+    <div class="gaugeMeter" id="PreviewGaugeMeter" data-percent="50" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+              
+
+  
+</div>
+</body>
+</html>
+
+<script>
+  $(".gaugeMeter").gaugeMeter();
+</script>
