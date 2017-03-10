@@ -14,7 +14,13 @@
 		        call_user_func_array(array($this,$f),$args); 
 		    } 
 		} 
-
+		
+		public function __construct2($nom, $image){
+			global $DAO;
+			$this->nom = $nom;
+			$this->image = $image;
+		}
+		
 		public function __construct3($id, $nom, $image){
 			global $DAO;
 			$this->id = $id;

@@ -33,7 +33,7 @@ CREATE TABLE Fonctionnalite(
 	priorite int,
 	idFonctionnaliteParent int,
 	idProjet int NOT NULL,
-	commentaire LONG TEXT,
+	commentaire LONGTEXT,
 	CONSTRAINT
 	FOREIGN KEY (idProjet) REFERENCES Projet(id)
 );

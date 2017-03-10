@@ -177,14 +177,32 @@
 	
 		public function saveFonctionnalite($fonctionnalite){
 			global $bdd;
-			$query=$bdd->prepare("UPDATE Fonctionnalite SET type=:type, nom=:nom, statut=:statut, priorite=:priorite, commentaire=:commentaire WHERE id=:id");
-			$query->bindValue(":type", $fonctionnalite->getType(), PDO::PARAM_INT);
-			$query->bindValue(":nom", $fonctionnalite->getNom(), PDO::PARAM_STR);
-			$query->bindValue(":statut", $fonctionnalite->getStatut(), PDO::PARAM_INT);
-			$query->bindValue(":priorite", $fonctionnalite->getPriorite(), PDO::PARAM_INT);
-			$query->bindValue(":commentaire", $fonctionnalite->getCommentaire(), PDO::PARAM_STR);
-			$query->bindValue(":id", $fonctionnalite->getId(), PDO::PARAM_INT);
-			$query->execute();
+			if($this->getSimpleFonctionnaliteById($fonctionnalite->getId())->getId() !== null){
+				$query=$bdd->prepare("UPDATE Fonctionnalite SET type=:type, nom=:nom, statut=:statut, priorite=:priorite, commentaire=:commentaire WHERE id=:id");
+				$query->bindValue(":type", $fonctionnalite->getType(), PDO::PARAM_INT);
+				$query->bindValue(":nom", $fonctionnalite->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":statut", $fonctionnalite->getStatut(), PDO::PARAM_INT);
+				$query->bindValue(":priorite", $fonctionnalite->getPriorite(), PDO::PARAM_INT);
+				$query->bindValue(":commentaire", $fonctionnalite->getCommentaire(), PDO::PARAM_STR);
+				$query->bindValue(":id", $fonctionnalite->getId(), PDO::PARAM_INT);
+				$query->execute();
+			}
+		}
+		
+		public function saveProjet($projet){
+			global $bdd;
+			if($this->getProjetById($projet->getId())->getId() !== null){
+				$query=$bdd->prepare("UPDATE projet SET nom=:nom, image=:image WHERE id=:id");
+				$query->bindValue(":nom", $projet->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":image", $projet->getImage(), PDO::PARAM_STR);
+				$query->bindValue(":id", $projet->getId(), PDO::PARAM_INT);
+				$query->execute();
+			}else{
+				$query=$bdd->prepare("INSERT INTO projet (nom, image) VALUES (:nom,:image)");
+				$query->bindValue(":nom", $projet->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":image", $projet->getImage(), PDO::PARAM_STR);
+				$query->execute();
+			}
 		}
 
 		public function saveTache($tache, $idFonctionnalite = 0){

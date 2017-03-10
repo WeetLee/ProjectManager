@@ -20,7 +20,6 @@
 	?>
 	<!--  		 				MENU								-->
 	<div id="maPage" class="mainPage">
-		<p><a href="vues/gererProjet.php">Gérer les projets</a></p>
 		<h1>Sélectionnez votre projet</h1>
 		<form id="formulaireRedirectProjet" method="post" action="vues/pageBacklog.php">
 			<table id="tableauLargeSize" class="tableauProjet">
@@ -30,7 +29,7 @@
 							echo "<tr>";
 						}
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; border:solid black 1px; margin:auto;'>Image</div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						if($index % 4 == 3 || $index == sizeof($listeProjets)-1){
@@ -49,7 +48,7 @@
 							echo "<tr>";
 						}
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; border:solid black 1px; margin:auto;'>Image</div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px;  margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						if($index % 2 == 1 || $index == sizeof($listeProjets)-1){
@@ -66,7 +65,7 @@
 					foreach($listeProjets as $projet){
 						echo "<tr>";
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; border:solid black 1px; margin:auto;'>Image</div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						echo "</tr>";
@@ -76,12 +75,73 @@
 			</table>
 			<input type="hidden" name="project"/>
 		</form>
+		
+		<form id="ajouterProjet" style="width : 500px; margin:auto; text-align:center;" enctype="multipart/form-data" method="POST" action="moteurs/addProjet.php">
+			<fieldset>
+				<legend>Nouveau projet</legend>
+				<table style="width:100%;">
+					<tr>
+						<td style="text-align:right;">Nom :</td>
+						<td style="text-align:left;"><input type="text" name="nomProjet"/></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;">Image : </td>
+						<td style="text-align:left;"><input type="file" name="imageProjet" accept="image/*"></td>
+					</tr>
+				</table>
+				<input class="boutonAjout" onclick="javascript:ajouterProjet()" type='submit' value="Créer un projet"/>
+			</fieldset>
+		</form>
 	</div>
 </body>
 </html>
 <script>
-	function changeProjet(index){
-		document.getElementsByName('project')[0].value = index;
-		document.getElementById('formulaireRedirectProjet').submit();
+	function ajouterProjet(){
+		var message = "";
+		if($("#ajoutNomTache").val())
+			var nomTache = $("#ajoutNomTache").val();
+		else		
+			message+="Erreur : le nom n'est pas renseigné.\n";
+		var statutTache = $("#ajoutStatutTache").val();
+		if($("#ajoutDureeTache").val())
+			var dureeTache = $("#ajoutDureeTache").val();
+		else
+			message+="Erreur : la durée n'est pas renseignée.";
+		var affectationTache = $("#ajoutAffectationTache").val();
+		if(message != ""){
+			$("#dialog").html(message);
+			$( "#dialog" ).dialog();	
+		}else{
+			var idFonctionnalite = $("#fonctionnaliteId").val();
+			$.ajax({
+				url:"../moteurs/addProject.php",
+				dataType:"text",
+				method:"POST",
+				data:{idFonctionnalite:idFonctionnalite, nomTache:nomTache,statutTache:statutTache,affectationTache:affectationTache,dureeTache:dureeTache},
+				success:function(data){
+					location.reload();					
+				}
+			})		
+		}
 	}
-</script>!
+	
+	$(function () {
+    $('#ajouterProjet').on('submit', function (e) {
+        // On empêche le navigateur de soumettre le formulaire
+        e.preventDefault();
+ 
+        var $form = $(this);
+        var formdata = (window.FormData) ? new FormData($form[0]) : null;
+        var data = (formdata !== null) ? formdata : $form.serialize();
+ 
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            contentType: false, // obligatoire pour de l'upload
+            processData: false, // obligatoire pour de l'upload
+            dataType: 'json', // selon le retour attendu
+            data: data
+        });
+    });
+});
+</script>
