@@ -89,12 +89,20 @@
 			$query->bindValue(':id',$idParent, PDO::PARAM_INT);
 			$query->execute();
 			while($ligne = $query->fetch()){
-				$item = new Tache($ligne['id'],$ligne['nom'],$ligne['avancement'],$ligne['dureePrevisionnelle']);
+				$item = new Tache($ligne['id'],$ligne['nom'],$ligne['avancement'],$ligne['dureePrevisionnelle'], $ligne['affectation']);
 				array_push($liste, $item);	
 			}
 			return $liste;
 		}
-		public function getTacheById($id) {}
+		public function getTacheById($id) {
+			global $bdd;
+			$query=$bdd->prepare('SELECT * FROM Tache WHERE id=:id');
+			$query->bindValue(':id',$id, PDO::PARAM_INT);
+			$query->execute();
+			$ligne = $query->fetch();
+			$item = new Tache($ligne['id'],$ligne['nom'],$ligne['avancement'],$ligne['dureePrevisionnelle'], $ligne['affectation']);
+			return $item;
+		}
 		public function getAllFonctionnalites() {}
 		public function getFonctionnalitesByProjetId($idProjet) {
 			global $bdd;
@@ -177,6 +185,27 @@
 			$query->bindValue(":commentaire", $fonctionnalite->getCommentaire(), PDO::PARAM_STR);
 			$query->bindValue(":id", $fonctionnalite->getId(), PDO::PARAM_INT);
 			$query->execute();
+		}
+
+		public function saveTache($tache, $idFonctionnalite = 0){
+			global $bdd;
+			if($this->getTacheById($tache->getId())->getId() !== null){
+				$query=$bdd->prepare("UPDATE Tache SET nom=:nom, avancement=:avancement, dureePrevisionnelle=:dureePrevisionnelle, affectation=:affectation WHERE id=:id");
+				$query->bindValue(":nom", $tache->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":avancement", $tache->getAvancement(), PDO::PARAM_STR);
+				$query->bindValue(":dureePrevisionnelle", $tache->getDureePrevisionnelle(), PDO::PARAM_STR);
+				$query->bindValue(":affectation", $tache->getAffectationId(), PDO::PARAM_INT);
+				$query->bindValue(":id", $tache->getId(), PDO::PARAM_INT);
+				$query->execute();
+			}else{
+				$query=$bdd->prepare("INSERT INTO Tache(nom, avancement, dureePrevisionnelle, affectation, idFonctionnalite) VALUES (:nom, :avancement, :dureePrevisionnelle, :affectation, :idFonctionnalite)");
+				$query->bindValue(":nom", $tache->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":avancement", $tache->getAvancement(), PDO::PARAM_STR);
+				$query->bindValue(":dureePrevisionnelle", $tache->getDureePrevisionnelle(), PDO::PARAM_STR);
+				$query->bindValue(":affectation", $tache->getAffectationId(), PDO::PARAM_INT);
+				$query->bindValue(":idFonctionnalite", $idFonctionnalite, PDO::PARAM_INT);
+				$query->execute();
+			}
 		}		
 	}
 ?>

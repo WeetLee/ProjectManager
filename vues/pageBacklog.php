@@ -32,12 +32,12 @@
 					<p onclick="javascript:changerStatut();" class="clickable">Afficher les fonctionnalités</p>
 				</div>
 			</form>
-			<fieldset style="display:none;">
+			<fieldset>
 				<legend id="filtre" class="clickable">Filtres</legend> 
 				<table id="tabFiltre" style="font-size:19px; table-layout: fixed; display:none;">
 				  <tr style="text-align:left;">
 				    <td>Type</td>
-				    <td>Status</td>
+				    <td>Statut</td>
 				    <td>Affectation</td>
 				  </tr>
 				  <tr style="text-align:left;">

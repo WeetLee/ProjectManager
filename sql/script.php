@@ -44,8 +44,10 @@ CREATE TABLE Tache(
 	avancement varchar(255) NOT NULL,
 	dureePrevisionnelle int,
 	idFonctionnalite int,
+	affectation int,
 	CONSTRAINT
-	FOREIGN KEY(idFonctionnalite) REFERENCES Fonctionnalite(id)
+	FOREIGN KEY(idFonctionnalite) REFERENCES Fonctionnalite(id),
+	FOREIGN KEY(affectation) REFERENCES Utilisateur(id)
 );
 
 CREATE TABLE Test(

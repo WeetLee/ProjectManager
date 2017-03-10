@@ -40,6 +40,7 @@
 			$this->sousFonctionnalites = $DAO->getFonctionnalitesByFonctionnaliteId($id);
 			$this->fonctionnaliteParent = $DAO->getSimpleFonctionnaliteById($fonctionnaliteParent);
 			$this->commentaire = $commentaire;
+			$this->completion = $this->calculCompletion();
 		}
 
 		public function getId(){
@@ -86,6 +87,41 @@
 			return $this->commentaire;
 		}
 
+		public function getTaches(){
+			return $this->taches;
+		}
+
+		public function getNbTachesTerminees(){
+			$taches = $this->getTaches();
+			$count = 0;
+			foreach($taches as $uneTache){
+				if($uneTache->getAvancement() == "Terminé")
+					$count++;
+			}
+			return $count;
+		}
+
+		public function getCompletion(){
+			return $this->completion;
+		}
+
+		public function getCompletionTaches(){
+			$taches = $this->getTaches();
+			$count = 0;
+			$sum = 0;
+			foreach($taches as $uneTache){
+				$dureeTache = $uneTache->getDureePrevisionnelle();
+				$count+=($uneTache->getCompletionByStatut())*$dureeTache;
+				$sum+=(1*$dureeTache);
+			}
+			if($sum != 0)
+				$completion = $count / $sum;
+			else{
+				$completion = "100";
+			}
+			return $completion;
+		}
+
 		public function getFilAriane(){
 			global $DAO;
 			$id = $this->getId();
@@ -115,17 +151,18 @@
 			$sum = 0;
 			foreach($sousFonctionnalites as $enfant) {
 				$count++;
-				$sum += $enfant->completion;
+				$sum += $enfant->getCompletion();
 			}
-			/*foreach($taches as $tache) {
-				$count++;
-				$sum += $tache->completion
-			}*/
-			if($count != 0)
-				$this->completion = $sum / $count;
+			$sum += $this->getCompletionTaches();//Taches completion
+			$count++;
+			/*$sum += $this->getCompletionByStatut();
+			$count++;*/
+			if($sum != 0)
+				$completion = round($sum / $count);
 			else{
-				$this->completion = $this->getCompletionByStatut();
+				$completion = 0;
 			}
+			return $completion;
 		}
 
 		public function getCompletionByStatut(){
@@ -157,6 +194,7 @@
 					break;
 				}
 			}
+			return $pourcentage;
 		}
 	}
 ?>

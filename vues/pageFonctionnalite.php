@@ -21,6 +21,7 @@
 		$maFonctionnalite = $DAO->getFonctionnaliteById($currentFonction);
 		$listeFonctionnalites = $maFonctionnalite->getSousFonctionnalites();
 		$fil = $maFonctionnalite->getFilAriane();
+		$completion = $maFonctionnalite->getCompletion();
 	}	
 	?>
 <head>
@@ -34,9 +35,13 @@
 </head> 
 <body>
 <p>
+	<form id="refreshPage" method="POST" action="#"> 
+		<input type="hidden" id="projetId" name="project" value="<?php echo $id;?>"/>
+		<input type="hidden" id="fonctionnaliteId" name="fonctionnalite" value="<?php echo $currentFonction;?>"/>
+	</form>
 	<form method='POST' action='#' id='submitFonctionnalite'>
 		<input type="hidden" name="project" value="<?php echo $id; ?>"/>
-		<input type="hidden" name="fonctionnalite" value="default"/>
+		<input type="hidden" id="changeFonctionnality" name="fonctionnalite" value="default"/>
 	<a class="linkAriane btn" href="../index.php">Projets</a> 
 	<?php 
 	 	if($currentFonction != "default"){
@@ -61,7 +66,7 @@
 	<h1>
 		<?php 
 			if($currentFonction != "default")
-				echo $maFonctionnalite->getNom();
+				echo $maFonctionnalite->getNom().' - '.$completion.'%';
 			else
 				echo $monProjet->getNom();
 		?>
@@ -69,7 +74,7 @@
 	<h2>Fonctionnalités</h2>
 	<form action="#" method="post" id="navigateFonctionnalite">
 		<input type='hidden' name='project' value="<?php echo $id; ?>"/>
-		<input type="hidden" name="fonctionnalite" value="default"/>
+		<input type="hidden" id="navigateFonctionnality" name="fonctionnalite" value="default"/>
 
 		<table id="tableauLargeSize" class="tableauProjet tableauFonctionnalite">
 			<?php
@@ -80,7 +85,7 @@
 					}
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="50" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 							<?php
 							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
 						echo "</td>";
@@ -101,7 +106,7 @@
 					}
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="50" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 							<?php
 							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
 						echo "</td>";
@@ -120,7 +125,7 @@
 					echo "<tr>";
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="50" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 							<?php
 							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
 						echo "</td>";
@@ -130,23 +135,105 @@
 			?> 
 		</table>
 	</form>
-	
+	<br/>
+	<div class="backlogDiv">
+		<table class="tableauTache">
+			<tr>
+				<td style="vertical-align:top;" id="affichageTaches">
+					
+				</td>
+				<td style="vertical-align:top;">
+					<h1>Tests</h1><hr/>
+				</td>
+			</tr>
+		</table>
+		
+	</div>	
 	
 </div>
 </body>
 </html>
 
 <script>
+	$(function(){
+		refreshTaches();
+	});
+
+	function refreshTaches(){
+		$.ajax({
+			url:"../moteurs/afficherTachesDansFonctionnalite.php",
+			dataType:"text",
+			method:"POST",
+			data:{"idProjet":document.getElementById('projetId').value, "idFonctionnalite":$('#fonctionnaliteId').val()},
+			success:function(data){
+				$("#affichageTaches").html(data);	
+				$( ".statut" ).selectmenu({
+					change:function(event,ui){
+						$.ajax({
+							url:"../moteurs/updateStatutTache.php",
+							dataType:"text",
+							method:"POST",
+							data:{idTache:this.name, statut:ui.item.value, idFonctionnalite:$("#fonctionnaliteId").val()},
+							success:function(data){
+								$("#refreshPage").submit();
+								//refreshTaches();
+								/*var donnees = JSON.parse(data);
+								var exp = donnees['id'].split("_");
+								refreshAffichageCompletionTache(donnees['completion']);
+								document.getElementById("avancement_"+exp[2]).value = ui.item.value;*/		
+								//refreshColor();							
+							}
+						})
+					}
+				});
+				refreshColor();				
+			}
+		})
+	}
 	$(".gaugeMeter").gaugeMeter();
+	  
 	function changeProjet(index){
-		document.getElementsByName('fonctionnalite')[1].value=index;
+		document.getElementById('navigateFonctionnality').value=index;
 		$("#navigateFonctionnalite").submit();
 	}
-	function changerStatut(){
+	function changerStatut(){	
 		$("#changerVue").submit();
 	}
 	function changerPage(index){
-		document.getElementsByName('fonctionnalite')[0].value=index;
+		document.getElementById('changeFonctionnality').value=index;
 		$("#submitFonctionnalite").submit();
+	}
+	
+
+	function refreshAffichageCompletionTache(completion){
+		$("#affichageCompletionTache").html(Math.round(completion));
+	}
+
+
+	function refreshColor(){
+		var index = 1;
+		if($("#nombreTaches").val()){
+			var nombreMax = $("#nombreTaches").val();
+			while(index <= nombreMax){
+				var valueAvancement = document.getElementById("avancement_"+(index-1)).value;
+				if(valueAvancement == "A analyser"){
+					$( "#ui-id-"+index+"-button" ).addClass( "aAnalyser");
+					$( "#ui-id-"+index+"-button" ).removeClass("aFaire enCours aTester termine");
+				}else if(valueAvancement == "A faire"){
+					$( "#ui-id-"+index+"-button" ).addClass( "aFaire");
+					$( "#ui-id-"+index+"-button" ).removeClass("aAnalyser enCours aTester termine");
+				}else if(valueAvancement == "En cours"){
+					$( "#ui-id-"+index+"-button" ).addClass( "enCours");
+					$( "#ui-id-"+index+"-button" ).removeClass("aAnalyser aFaire aTester termine");
+				}else if(valueAvancement == "A tester"){
+					$( "#ui-id-"+index+"-button" ).addClass( "aTester");
+					$( "#ui-id-"+index+"-button" ).removeClass("aAnalyser aFaire enCours termine");
+				}else if(valueAvancement == "Terminé"){
+					$( "#ui-id-"+index+"-button" ).addClass( "termine");
+					$( "#ui-id-"+index+"-button" ).removeClass("aAnalyser aFaire enCours aTester");
+				}
+				index++;
+			}
+		}
 	}
 </script>

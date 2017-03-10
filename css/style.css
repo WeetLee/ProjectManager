@@ -31,6 +31,11 @@ body{
 	table-layout: fixed;
 }
 
+.tableauTache{
+	width : 100%;
+	table-layout: fixed;	
+}
+
 .tableauProjet tr{
 	margin-bottom : 20px;
 	height:160px;
@@ -246,4 +251,53 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 .lastFonctionnality:active {
 	position:relative;
 	top:1px;
+}
+
+.aAnalyser{
+	background-color: #ff4949;
+    color: black;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.aFaire{
+	background-color: #ffb05d;
+    color: black;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.enCours{
+    background-color: #fff659;
+    color: black;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.aTester{
+	background-color: #d9e292;
+    color: black;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.termine{
+	background-color: #9be279;
+    color: black;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.boutonAjout{
+	box-shadow: rgb(166, 130, 126) 0px 1px 0px 0px inset; 
+	background: linear-gradient(rgb(125, 93, 59) 5%, rgb(99, 75, 48) 100%) rgb(125, 93, 59); 
+	border-radius: 3px; 
+	border: 1px solid rgb(84, 56, 30); 
+	display: inline-block; 
+	cursor: pointer; 
+	color: rgb(255, 255, 255); 
+	font-family: Arial; 
+	font-size: 13px; 
+	padding: 6px 24px; 
+	text-decoration: none; 
+	text-shadow: rgb(77, 53, 52) 0px 1px 0px;
+}
+
+#dialog{
+	font-family: "Open Sans", Arial;
 }
