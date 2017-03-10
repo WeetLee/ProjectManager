@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Test Your Code</title>
-	<script src="js/Jquery/jquery-3.1.1.js"></script>
-  	<script src="js/Jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script src="js/jquery-3.1.1.js"></script>
+  	<script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
  	<link rel="stylesheet" href="css/jquery-ui.css"/>
  	<link rel="stylesheet" href="css/style.css"/>
 </head> 
@@ -89,43 +89,18 @@
 						<td style="text-align:left;"><input type="file" name="imageProjet" accept="image/*"></td>
 					</tr>
 				</table>
-				<input class="boutonAjout" onclick="javascript:ajouterProjet()" type='submit' value="Créer un projet"/>
+				<input class="boutonAjout" type='submit' value="Créer un projet"/>
 			</fieldset>
 		</form>
 	</div>
 </body>
 </html>
 <script>
-	function ajouterProjet(){
-		var message = "";
-		if($("#ajoutNomTache").val())
-			var nomTache = $("#ajoutNomTache").val();
-		else		
-			message+="Erreur : le nom n'est pas renseigné.\n";
-		var statutTache = $("#ajoutStatutTache").val();
-		if($("#ajoutDureeTache").val())
-			var dureeTache = $("#ajoutDureeTache").val();
-		else
-			message+="Erreur : la durée n'est pas renseignée.";
-		var affectationTache = $("#ajoutAffectationTache").val();
-		if(message != ""){
-			$("#dialog").html(message);
-			$( "#dialog" ).dialog();	
-		}else{
-			var idFonctionnalite = $("#fonctionnaliteId").val();
-			$.ajax({
-				url:"../moteurs/addProject.php",
-				dataType:"text",
-				method:"POST",
-				data:{idFonctionnalite:idFonctionnalite, nomTache:nomTache,statutTache:statutTache,affectationTache:affectationTache,dureeTache:dureeTache},
-				success:function(data){
-					location.reload();					
-				}
-			})		
-		}
-	}
-	
-	$(function () {
+function changeProjet(index){
+	document.getElementsByName('project')[0].value = index;
+	document.getElementById('formulaireRedirectProjet').submit();
+}
+$(function () {
     $('#ajouterProjet').on('submit', function (e) {
         // On empêche le navigateur de soumettre le formulaire
         e.preventDefault();

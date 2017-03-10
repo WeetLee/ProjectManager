@@ -136,6 +136,9 @@
 		</table>
 	</form>
 	<br/>
+	<?php 
+		if($currentFonction != "default"){
+	?>
 	<div class="backlogDiv">
 		<table class="tableauTache">
 			<tr>
@@ -149,6 +152,9 @@
 		</table>
 		
 	</div>	
+	<?php
+		}
+	?>
 	
 </div>
 </body>
@@ -175,13 +181,7 @@
 							method:"POST",
 							data:{idTache:this.name, statut:ui.item.value, idFonctionnalite:$("#fonctionnaliteId").val()},
 							success:function(data){
-								$("#refreshPage").submit();
-								//refreshTaches();
-								/*var donnees = JSON.parse(data);
-								var exp = donnees['id'].split("_");
-								refreshAffichageCompletionTache(donnees['completion']);
-								document.getElementById("avancement_"+exp[2]).value = ui.item.value;*/		
-								//refreshColor();							
+								$("#refreshPage").submit();							
 							}
 						})
 					}
@@ -204,12 +204,6 @@
 		$("#submitFonctionnalite").submit();
 	}
 	
-
-	function refreshAffichageCompletionTache(completion){
-		$("#affichageCompletionTache").html(Math.round(completion));
-	}
-
-
 	function refreshColor(){
 		var index = 1;
 		if($("#nombreTaches").val()){
