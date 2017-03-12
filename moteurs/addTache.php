@@ -7,6 +7,7 @@
 	$statutTache = $_POST['statutTache'];
 	$dureeTache = $_POST['dureeTache'];
 	$affectationTache = $_POST['affectationTache'];
-	$nouvelleTache = new Tache($nomTache, $statutTache, $dureeTache, $affectationTache);
+	$typeTache = $_POST['typeTache'];
+	$nouvelleTache = new Tache($nomTache, $statutTache, $dureeTache, $affectationTache, $typeTache);
 	$DAO->saveTache($nouvelleTache,$idFonctionnalite);
 ?>

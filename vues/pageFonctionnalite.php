@@ -176,17 +176,17 @@
 				$( ".statut" ).selectmenu({
 					change:function(event,ui){
 						$.ajax({
-							url:"../moteurs/updateStatutTache.php",
+							url:"../moteurs/updateTache.php",
 							dataType:"text",
 							method:"POST",
-							data:{idTache:this.name, statut:ui.item.value, idFonctionnalite:$("#fonctionnaliteId").val()},
+							data:{idTache:this.name, nouveau:ui.item.value, idFonctionnalite:$("#fonctionnaliteId").val(), type:"Statut"},
 							success:function(data){
 								$("#refreshPage").submit();							
 							}
 						})
 					}
 				});
-				refreshColor();				
+				refreshColor();			
 			}
 		})
 	}

@@ -45,6 +45,7 @@ CREATE TABLE Tache(
 	dureePrevisionnelle int,
 	idFonctionnalite int,
 	affectation int,
+	statut varchar(255),
 	CONSTRAINT
 	FOREIGN KEY(idFonctionnalite) REFERENCES Fonctionnalite(id),
 	FOREIGN KEY(affectation) REFERENCES Utilisateur(id)

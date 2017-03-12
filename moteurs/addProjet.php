@@ -3,7 +3,9 @@
 	require_once(__ROOT__.'/utils/links.php');
 
 	if(isset($_POST)){
-		$upload = upload('imageProjet','img/projets',1000000, array('png','gif','jpg','jpeg') );
+		var_dump($_POST);
+		$upload = upload('imageProjet','img/projets',100000000000000000000000000000, array('png','gif','jpg','jpeg','JPG') );
+		echo $upload;
 		if ($upload){
 			$projet = new Projet($_POST['nomProjet'], $upload);
 			$DAO->saveProjet($projet);

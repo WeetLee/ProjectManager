@@ -9,6 +9,7 @@
   define('__ROOT__',dirname(dirname(__FILE__)));
   require_once(__ROOT__.'/utils/links.php');
   $mesFonctionnalites = $DAO->getAllFonctionnaliteByProject($idProjet);
+
   function filterArray($mesFonctionnalites,$filtres){
     $newListe = array();
     foreach($mesFonctionnalites as $fonctionnalite){

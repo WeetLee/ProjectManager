@@ -2,9 +2,10 @@
 	class Tache {
 		private $id;
 		private $nom;
-		private $avancement;
+		private $statut;
 		private $dureePrevisionnelle;
 		private $affectation;
+		private $type;
 
 		public function __construct()
 		{ 
@@ -18,24 +19,26 @@
 		public function __construct0(){
 			global $DAO;
 		}
-		public function __construct4($nom, $avancement, $dureePrevisionnelle, $affectation){
+		public function __construct5($nom, $statut, $dureePrevisionnelle, $affectation, $type){
 			global $DAO;
 			$this->nom = $nom;
-			$this->avancement = $avancement;
+			$this->statut = $statut;
 			$this->dureePrevisionnelle = $dureePrevisionnelle;
 			if($affectation != "")
 				$this->affectation = $DAO->getUtilisateurById($affectation);
 			else
 				$this->affectation = $affectation;
+			$this->type = $type;
 		}
 
-		public function __construct5($id, $nom, $avancement, $dureePrevisionnelle, $affectation){
+		public function __construct6($id, $nom, $statut, $dureePrevisionnelle, $affectation, $type){
 			global $DAO;
 			$this->id = $id;
 			$this->nom = $nom;
-			$this->avancement = $avancement;
+			$this->statut = $statut;
 			$this->dureePrevisionnelle = $dureePrevisionnelle;
 			$this->affectation = $DAO->getUtilisateurById($affectation);
+			$this->type = $type;
 		}
 
 		public function getId(){
@@ -46,9 +49,22 @@
 			return $this->nom;
 		}
 
-		public function getAvancement(){
-			return $this->avancement;
+		public function setNom($nom){
+			$this->nom = $nom;
 		}
+
+		public function getStatut(){
+			return $this->statut;
+		}
+
+		public function getType(){
+			return $this->type;
+		}
+
+		public function setType($type){
+			$this->type = $type;
+		}
+
 		public function getDureePrevisionnelle(){
 			return $this->dureePrevisionnelle;
 		}
@@ -62,8 +78,12 @@
 			else
 				return $this->affectation->getId();
 		}
-		public function setAvancement($statut){
-			$this->avancement = $statut;
+		public function setAffectation($id){
+			global $DAO;
+			$this->affectation = $DAO->getUtilisateurById($id);
+		}
+		public function setStatut($statut){
+			$this->statut = $statut;
 		}
 
 		public function setDuree($duree){
@@ -71,7 +91,7 @@
 		}
 
 		public function getCompletionByStatut(){
-			$statut = $this->getAvancement();
+			$statut = $this->getstatut();
 			$pourcentage = 0;
 			switch($statut){
 				case "A analyser":{

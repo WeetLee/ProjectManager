@@ -301,3 +301,16 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 #dialog{
 	font-family: "Open Sans", Arial;
 }
+
+.typeTache option{
+	padding: .2em .2em;
+	position: relative;
+	line-height: normal;
+	margin-right: .1em;
+	cursor: pointer;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

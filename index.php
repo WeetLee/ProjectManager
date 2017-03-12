@@ -29,7 +29,7 @@
 							echo "<tr>";
 						}
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='max-width:100%; max-height:100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						if($index % 4 == 3 || $index == sizeof($listeProjets)-1){
@@ -48,7 +48,7 @@
 							echo "<tr>";
 						}
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px;  margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px;  margin:auto;'><img style='max-width:100%; max-height:100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						if($index % 2 == 1 || $index == sizeof($listeProjets)-1){
@@ -65,7 +65,7 @@
 					foreach($listeProjets as $projet){
 						echo "<tr>";
 							echo "<td>";
-								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='width : 100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
+								echo "<span><div class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")' style='width : 100px; height : 100px; margin:auto;'><img style='max-width:100%; max-height:100%;' src='img/projets/".$projet->getImage()."'/></div></span>";
 								echo "<span class='clickable' onclick='javascript:changeProjet(\"".$projet->getId()."\")'>".$projet->getNom()."</span>";
 							echo "</td>";
 						echo "</tr>";
@@ -75,7 +75,6 @@
 			</table>
 			<input type="hidden" name="project"/>
 		</form>
-		
 		<form id="ajouterProjet" style="width : 500px; margin:auto; text-align:center;" enctype="multipart/form-data" method="POST" action="moteurs/addProjet.php">
 			<fieldset>
 				<legend>Nouveau projet</legend>
@@ -100,23 +99,4 @@ function changeProjet(index){
 	document.getElementsByName('project')[0].value = index;
 	document.getElementById('formulaireRedirectProjet').submit();
 }
-$(function () {
-    $('#ajouterProjet').on('submit', function (e) {
-        // On empêche le navigateur de soumettre le formulaire
-        e.preventDefault();
- 
-        var $form = $(this);
-        var formdata = (window.FormData) ? new FormData($form[0]) : null;
-        var data = (formdata !== null) ? formdata : $form.serialize();
- 
-        $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            contentType: false, // obligatoire pour de l'upload
-            processData: false, // obligatoire pour de l'upload
-            dataType: 'json', // selon le retour attendu
-            data: data
-        });
-    });
-});
 </script>
