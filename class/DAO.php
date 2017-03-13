@@ -176,16 +176,29 @@
 				return null;
 		}
 	
-		public function saveFonctionnalite($fonctionnalite){
+		public function saveFonctionnalite($fonctionnalite, $idFonctionnaliteParent = 0, $idProjet = 0){
 			global $bdd;
 			if($this->getSimpleFonctionnaliteById($fonctionnalite->getId())->getId() !== null){
-				$query=$bdd->prepare("UPDATE Fonctionnalite SET type=:type, nom=:nom, statut=:statut, priorite=:priorite, commentaire=:commentaire WHERE id=:id");
+				$query=$bdd->prepare("UPDATE Fonctionnalite SET type=:type, nom=:nom, statut=:statut, priorite=:priorite, affectation=:affectation, commentaire=:commentaire WHERE id=:id");
 				$query->bindValue(":type", $fonctionnalite->getType(), PDO::PARAM_INT);
 				$query->bindValue(":nom", $fonctionnalite->getNom(), PDO::PARAM_STR);
 				$query->bindValue(":statut", $fonctionnalite->getStatut(), PDO::PARAM_INT);
+				$query->bindValue(":affectation", $fonctionnalite->getAffectationId(), PDO::PARAM_INT);
 				$query->bindValue(":priorite", $fonctionnalite->getPriorite(), PDO::PARAM_INT);
 				$query->bindValue(":commentaire", $fonctionnalite->getCommentaire(), PDO::PARAM_STR);
 				$query->bindValue(":id", $fonctionnalite->getId(), PDO::PARAM_INT);
+				$query->execute();
+			}else{
+				$query=$bdd->prepare("INSERT INTO Fonctionnalite(type, nom, statut, affectation, priorite, idFonctionnaliteParent, idProjet, commentaire) VALUES 
+																(:type, :nom, :statut, :affectation, :priorite, :idFonctionnaliteParent, :idProjet, :commentaire)");
+				$query->bindValue(":type", $fonctionnalite->getType(), PDO::PARAM_INT);
+				$query->bindValue(":nom", $fonctionnalite->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":statut", $fonctionnalite->getStatut(), PDO::PARAM_INT);
+				$query->bindValue(":affectation", $fonctionnalite->getAffectationId(), PDO::PARAM_INT);
+				$query->bindValue(":priorite", $fonctionnalite->getPriorite(), PDO::PARAM_INT);
+				$query->bindValue(":idFonctionnaliteParent", $idFonctionnaliteParent, PDO::PARAM_INT);
+				$query->bindValue(":idProjet", $idProjet, PDO::PARAM_INT);
+				$query->bindValue(":commentaire", $fonctionnalite->getCommentaire(), PDO::PARAM_STR);
 				$query->execute();
 			}
 		}

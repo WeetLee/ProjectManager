@@ -876,7 +876,7 @@ button:focus {
 
   /* 2 columns */
   .grid__item {
-    width:50%;
+    width:100%;
     border: none;
   }
 
@@ -902,13 +902,13 @@ button:focus {
 @media screen and (min-width: 1200px) {
   /* 3 columns */
   .grid__item {
-    width: 33.333%;
+    width: 100%;
   }
 }
 @media screen and (min-width: 1500px) {
   /* 4 columns */
   .grid__item {
-    width: 25%;
+    width: 100%;
   }
 }
 @media screen and (min-width: 1800px) {
@@ -920,7 +920,7 @@ button:focus {
 @media screen and (min-width: 2100px) {
   /* 6 columns */
   .grid__item {
-    width: 16.66%;
+    width: 100%;
   }
 }
 /* small screen changes for sidebar (it becomes an off-canvas menu) */

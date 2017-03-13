@@ -116,8 +116,7 @@
 			</tr>
 		</form>
 </table>
-<div id="dialog" title="Erreur">
-</div>
+
 <div id="dialogChgtDuree" title="Changer la durée">
 </div>
 <div id="dialogChgtNom" title="Changer le nom">
@@ -159,7 +158,8 @@
 				method:"POST",
 				data:{idFonctionnalite:idFonctionnalite, nomTache:nomTache,statutTache:statutTache,affectationTache:affectationTache,dureeTache:dureeTache, typeTache:typeTache},
 				success:function(data){
-					$("#refreshPage").submit();						
+					console.log(data);
+					//$("#refreshPage").submit();						
 				}
 			})		
 		}

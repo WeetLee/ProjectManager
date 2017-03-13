@@ -135,6 +135,42 @@
 			?> 
 		</table>
 	</form>
+	<form id="ajoutFonctionnalite">
+		<table style="margin:auto;">
+			<tr>
+				<th>Nom</th>
+				<th>Priorité</th>
+				<th>Affectation</th>
+			</tr>
+			<tr>
+				<td><input type="text" placeholder="Nom" id="ajoutNomFonctionnalite" name="ajoutNomFonctionnalite" required/></td>
+				<td>
+					<select id="ajoutPrioriteFonctionnalite" name="ajoutPrioriteFonctionnalite">
+						<option class="ui-selectmenu-button ui-button" value="1">Prioritaire</option>
+						<option class="ui-selectmenu-button ui-button" value="2">Important</option>
+						<option class="ui-selectmenu-button ui-button" value="3" selected>Moyen</option>
+						<option class="ui-selectmenu-button ui-button" value="4">Mineur</option>
+					</select>
+				</td>
+				<td>
+					<select id="ajoutAffectationFonctionnalite" name="ajoutAffectationFonctionnalite">
+						<?php
+							
+							$tousLesUtilisateurs = $DAO->getUtilisateursByProjectId($id);
+							foreach($tousLesUtilisateurs as $user){
+								echo "<option value='".$user->getId()."'>".$user->getNom()."</option>";
+							}
+						 ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<input class="boutonAjout" onclick="javascript:ajouterFonctionnalite()" type='button' value="Créer une fonctionnalité"/>
+				</td>
+			</tr>
+		</table>
+	</form>
 	<br/>
 	<?php 
 		if($currentFonction != "default"){
@@ -155,7 +191,7 @@
 	<?php
 		}
 	?>
-	
+	<div id="dialog" title="Erreur"></div>
 </div>
 </body>
 </html>
@@ -228,6 +264,36 @@
 				}
 				index++;
 			}
+		}
+	}
+	
+	function ajouterFonctionnalite(){
+		var message = "";
+		if($("#ajoutNomFonctionnalite").val())
+			var nomFonctionnalite = $("#ajoutNomFonctionnalite").val();
+		else		
+			message+="Erreur : le nom n'est pas renseigné.\n";
+		if($("#ajoutAffectationFonctionnalite").val())
+			var affectationFonctionnalite = $("#ajoutAffectationFonctionnalite").val();
+		else		
+			message+="Erreur : veuillez affecter une personne au projet.\n";
+
+		var prioriteFonctionnalite = $("#ajoutPrioriteFonctionnalite").val();
+		if(message != ""){
+			$("#dialog").html(message);
+			$("#dialog" ).dialog();	
+		}else{
+			var idFonctionnalite = $("#fonctionnaliteId").val();
+			var idProjet = $("#projetId").val();
+			$.ajax({
+				url:"../moteurs/addFonctionnalite.php",
+				dataType:"text",
+				method:"POST",
+				data:{idFonctionnalite:idFonctionnalite, idProjet:idProjet, nomFonctionnalite:nomFonctionnalite,affectationFonctionnalite:affectationFonctionnalite, prioriteFonctionnalite:prioriteFonctionnalite},
+				success:function(data){
+					$("#refreshPage").submit();						
+				}
+			})		
 		}
 	}
 </script>

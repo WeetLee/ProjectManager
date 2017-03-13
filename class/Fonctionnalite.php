@@ -27,6 +27,21 @@
 			$this->nom = $nom;
 		}
 
+		public function __construct7($type, $nom, $statut, $affectation, $priorite, $fonctionnaliteParent, $commentaire){
+			global $DAO;
+			$this->type = $type;
+			$this->nom = $nom;
+			$this->statut = $statut;
+			$this->affectation = $DAO->getUtilisateurById($affectation);
+			$this->priorite = $priorite;
+			$this->taches = $DAO->getTachesByFonctionnaliteId($id);
+			$this->tests = $DAO->getTestsByFonctionnaliteId($id);
+			$this->sousFonctionnalites = $DAO->getFonctionnalitesByFonctionnaliteId($id);
+			$this->fonctionnaliteParent = $DAO->getSimpleFonctionnaliteById($fonctionnaliteParent);
+			$this->commentaire = $commentaire;
+			$this->completion = $this->calculCompletion();
+		}
+		
 		public function __construct8($id, $type, $nom, $statut, $affectation, $priorite, $fonctionnaliteParent, $commentaire){
 			global $DAO;
 			$this->id = $id;
@@ -69,6 +84,10 @@
 
 		public function getAffectation(){
 			return $this->affectation->getNom();
+		}
+		
+		public function getAffectationId(){
+			return $this->affectation->getId();
 		}
 
 		public function getPriorite(){
