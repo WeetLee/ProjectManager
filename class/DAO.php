@@ -75,12 +75,20 @@
 			$query->bindValue(':id',$idParent, PDO::PARAM_INT);
 			$query->execute();
 			while($ligne = $query->fetch()){
-				$item = new Tache($ligne['id'],$ligne['nom'],$ligne['statut'],$ligne['dateDerniereExecution']);
+				$item = new Test($ligne['id'],$ligne['nom'],$ligne['statut'],$ligne['dateDerniereExecution']);
 				array_push($liste, $item);	
 			}
 			return $liste;
 		}
-		public function getTestById($id) {}
+		public function getTestById($id) {
+			global $bdd;
+			$query=$bdd->prepare('SELECT * FROM Test WHERE id=:id');
+			$query->bindValue(':id',$id, PDO::PARAM_INT);
+			$query->execute();
+			$ligne = $query->fetch();
+			$item = new Test($ligne['id'],$ligne['nom'],$ligne['statut'],$ligne['dateDerniereExecution']);
+			return $item;
+		}
 		public function getAllTaches() {}
 		public function getTachesByFonctionnaliteId($idParent) {
 			global $bdd;
@@ -259,5 +267,24 @@
 			}
 			$this->updateStatutFonctionnalite($idFonctionnalite);
 		}		
+		
+		public function saveTest($test, $idFonctionnalite = 0){
+			global $bdd;
+			if($this->getTestById($test->getId())->getId() !== null){
+				$query=$bdd->prepare("UPDATE test SET nom=:nom, statut=:statut, dateDerniereExecution=:dateDerniereExecution WHERE id=:id");
+				$query->bindValue(":nom", $test->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":statut", $test->getStatut(), PDO::PARAM_STR);
+				$query->bindValue(":dateDerniereExecution", $test->getDateExec(), PDO::PARAM_STR);
+				$query->bindValue(":id", $test->getId(), PDO::PARAM_INT);
+				$query->execute();
+			}else{
+				$query=$bdd->prepare("INSERT INTO test(nom, statut, dateDerniereExecution, idFonctionnalite) VALUES (:nom, :statut, :dateDerniereExecution, :idFonctionnalite)");
+				$query->bindValue(":nom", $test->getNom(), PDO::PARAM_STR);
+				$query->bindValue(":statut", $test->getStatut(), PDO::PARAM_STR);
+				$query->bindValue(":dateDerniereExecution", $test->getDateExec(), PDO::PARAM_STR);
+				$query->bindValue(":idFonctionnalite", $idFonctionnalite, PDO::PARAM_INT);
+				$query->execute();
+			}
+		}
 	}
 ?>

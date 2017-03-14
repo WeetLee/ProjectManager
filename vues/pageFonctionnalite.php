@@ -178,11 +178,11 @@
 	<div class="backlogDiv">
 		<table class="tableauTache">
 			<tr>
-				<td style="vertical-align:top;" id="affichageTaches">
+				<td style="vertical-align:top; border-right : solid grey 1px;" id="affichageTaches">
 					
 				</td>
-				<td style="vertical-align:top;">
-					<h1>Tests</h1><hr/>
+				<td style="vertical-align:top; border-left : solid grey 1px;" id="affichageTests">
+				
 				</td>
 			</tr>
 		</table>
@@ -199,6 +199,7 @@
 <script>
 	$(function(){
 		refreshTaches();
+		refreshTests();
 	});
 
 	function refreshTaches(){
@@ -226,6 +227,18 @@
 			}
 		})
 	}
+	function refreshTests(){
+		$.ajax({
+			url:"../moteurs/afficherTestsDansFonctionnalite.php",
+			dataType:"text",
+			method:"POST",
+			data:{"idProjet":document.getElementById('projetId').value, "idFonctionnalite":$('#fonctionnaliteId').val()},
+			success:function(data){
+				$("#affichageTests").html(data);			
+			}
+		})
+	}
+	
 	$(".gaugeMeter").gaugeMeter();
 	  
 	function changeProjet(index){

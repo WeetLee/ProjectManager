@@ -110,7 +110,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<input class="boutonAjout" onclick="javascript:ajouterTacheFonctionnalite()" type='button' value="Créer une tache"/>
 				</td>
 			</tr>
@@ -158,8 +158,7 @@
 				method:"POST",
 				data:{idFonctionnalite:idFonctionnalite, nomTache:nomTache,statutTache:statutTache,affectationTache:affectationTache,dureeTache:dureeTache, typeTache:typeTache},
 				success:function(data){
-					console.log(data);
-					//$("#refreshPage").submit();						
+					$("#refreshPage").submit();						
 				}
 			})		
 		}

@@ -25,5 +25,54 @@
 			$this->statut = $statut;
 			$this->dateExec = $dateExec;
 		}
+		
+		public function getId(){
+			return $this->id;
+		}
+
+		public function getNom(){
+			return $this->nom;
+		}
+		
+		public function getStatut(){
+			return $this->statut;
+		}
+		
+		public function getDateExec(){
+			return $this->dateExec;
+		}
+		
+		public function setNom($nom){
+			$this->nom = $nom;
+		}
+		
+		public function setStatut($statut){
+			$this->statut = $statut;
+		}
+		
+		public function setDateExec($date){
+			$this->dateExec = $date;
+		}
+		
+		public function getCompletionByStatut(){
+			$statut = $this->getstatut();
+			$pourcentage = 0;
+			switch($statut){
+				case "KO":{
+					$pourcentage = 0;
+					break;
+				}
+				case "OK":{
+					$pourcentage = 100;
+					break;
+				}
+				
+				default:{
+					$pourcentage = 0;
+					break;
+				}
+			}
+			return $pourcentage;
+		}
 	}
 ?>

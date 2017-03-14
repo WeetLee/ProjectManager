@@ -55,7 +55,7 @@ CREATE TABLE Test(
 	id int PRIMARY KEY auto_increment NOT NULL,
 	nom text NOT NULL,
 	statut varchar(255) NOT NULL,
-	dateDerniereExecution date,
+	dateDerniereExecution VARCHAR(255),
 	idFonctionnalite int,
 	CONSTRAINT
 	FOREIGN KEY(idFonctionnalite) REFERENCES Fonctionnalite(id)

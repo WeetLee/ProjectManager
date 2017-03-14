@@ -109,6 +109,10 @@
 		public function getTaches(){
 			return $this->taches;
 		}
+		
+		public function getTests(){
+			return $this->tests;
+		}
 
 		public function getNbTachesTerminees(){
 			$taches = $this->getTaches();
@@ -141,6 +145,22 @@
 			return $completion;
 		}
 
+		public function getCompletionTests(){
+			$tests = $this->getTests();
+			$count = 0;
+			$sum = 0;
+			foreach($tests as $unTest){
+				$count+=$unTest->getCompletionByStatut();
+				$sum+=1;
+			}
+			if($sum != 0)
+				$completion = $count / $sum;
+			else{
+				$completion = "100";
+			}
+			return $completion;
+		}
+		
 		public function getFilAriane(){
 			global $DAO;
 			$id = $this->getId();

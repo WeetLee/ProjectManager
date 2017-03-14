@@ -253,7 +253,7 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 	top:1px;
 }
 
-.aAnalyser{
+.aAnalyser, .KO{
 	background-color: #ff4949;
     color: black;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
@@ -277,7 +277,7 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-.termine{
+.termine, .OK{
 	background-color: #9be279;
     color: black;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
