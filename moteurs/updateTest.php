@@ -12,12 +12,16 @@
 	if ($type == 'Nom'){
 		$test->setNom($nouveau);
 	}else if($type == "Statut"){
-		$explode = explode("_",$idTest);
-		$id = $explode[1];
-		$test = $DAO->gettestById($id);
+		if($nouveau == "live"){
+			$test->setStatut("KO");
+		}else if($nouveau == "KO"){
+			$test->setStatut("KO");
+		}else{
+			$test->setStatut("OK");
+		}
 		$test->setStatut($nouveau); 
+		$test->setDateExec(time());
 	}
-
 	$DAO->saveTest($test, $idFonctionnalite);
 	
 ?>

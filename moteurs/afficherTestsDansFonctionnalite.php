@@ -12,7 +12,7 @@
 	$completionTests = $maFonctionnalite->getCompletionTests();
 ?>
 <h1>Tests - <?php echo round($completionTests);?>%</h1><hr/>
-<table>
+<table style='border-spacing: 0px 10px'>
 	<tr>
 		<th>Nom</th>
 		<th>Statut</th>
@@ -24,29 +24,29 @@
 		foreach($tests as $unTest){
 			echo "<tr>";
 				echo "<td class='modifierNomTest' id='nomTest_".$unTest->getId()."'>".$unTest->getNom()."</td>";
-				echo "<td class='".$unTest->getStatut()."'>".$unTest->getStatut()."</td>";
-				echo "<td>";
+				echo "<td class='".$unTest->getStatut()."' style='border:solid black 1px;'>".$unTest->getStatut()."</td>";
+				echo "<td style='width : 200px;'>";
 					$date = $unTest->getDateExec();
 					if($date != ""){
-						$formatFr = date("d/m/Y h:i:s", $date);
+						$formatFr = date("d/m/Y H:i:s", $date);
 						echo $formatFr;
 					}
 				echo "</td>";
-				echo "<td></td>";
+				echo "<td style='width : 200px;'><img src='../img/play.png' onclick='lancerTest(\"".$unTest->getId()."\", \"live\")' width='25px' title='Test live'/> <img src='../img/OK.png' onclick='lancerTest(\"".$unTest->getId()."\", \"OK\")' width='20px' style='margin-left:20px;' title='Test OK'/><img src='../img/KO.png' onclick='lancerTest(\"".$unTest->getId()."\", \"KO\")' width='20px' style='margin-left:20px;' title='Test KO'/></td>";
 			echo "</tr>";
 
 			$index++;
 		}
 	?>
-		<form id="ajoutTache">
+		<form id="ajoutTest">
 			<tr>
 				<td colspan="4">
-					<input type="text" placeholder="Nom" id="ajoutNomTache" name="ajoutNomTache" required/>
+					<input type="text" placeholder="Nom" id="ajoutNomTest" name="ajoutNomTest" required/>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<input class="boutonAjout" onclick="javascript:ajouterTacheFonctionnalite()" type='button' value="Créer un test"/>
+					<input class="boutonAjout" onclick="javascript:ajouterTestFonctionnalite()" type='button' value="Créer un test"/>
 				</td>
 			</tr>
 		</form>
@@ -62,36 +62,29 @@
   	<input class="boutonAjout" type='button' value="Modifier" onclick="javascript:updateNomTest();" style="margin-top : 10px; margin-left : 25px;">
 </div>
 <script>
-	/*function ajouterTacheFonctionnalite(){
+	function ajouterTestFonctionnalite(){
 		var message = "";
-		if($("#ajoutNomTache").val())
-			var nomTache = $("#ajoutNomTache").val();
+		if($("#ajoutNomTest").val())
+			var nomTest = $("#ajoutNomTest").val();
 		else		
 			message+="Erreur : le nom n'est pas renseigné.\n";
-		var statutTache = $("#ajoutStatutTache").val();
-		if($("#ajoutDureeTache").val())
-			var dureeTache = $("#ajoutDureeTache").val();
-		else
-			message+="Erreur : la durée n'est pas renseignée.";
-		var affectationTache = $("#ajoutAffectationTache").val();
-		var typeTache =$("#ajoutTypeTache").val();
 		if(message != ""){
 			$("#dialog").html(message);
 			$( "#dialog" ).dialog();	
 		}else{
 			var idFonctionnalite = $("#fonctionnaliteId").val();
 			$.ajax({
-				url:"../moteurs/addTache.php",
+				url:"../moteurs/addTest.php",
 				dataType:"text",
 				method:"POST",
-				data:{idFonctionnalite:idFonctionnalite, nomTache:nomTache,statutTache:statutTache,affectationTache:affectationTache,dureeTache:dureeTache, typeTache:typeTache},
+				data:{idFonctionnalite:idFonctionnalite, nomTest:nomTest},
 				success:function(data){
 					$("#refreshPage").submit();						
 				}
 			})		
 		}
 	}
-*/
+
 	$(function() {
 	    var divNom = $( ".modifierNomTest" );
 		$(divNom).dblclick(function(event) {    
@@ -124,5 +117,17 @@
 				$("#refreshPage").submit();						
 			}
 		})		
+	}
+
+	function lancerTest(idTest, typeTest){
+		var idFonctionnalite = $("#fonctionnaliteId").val();
+		$.ajax({
+			url:"../moteurs/updateTest.php",
+			method:"POST",
+			data:{idFonctionnalite:idFonctionnalite, idTest:idTest,nouveau:typeTest, type:"Statut"},
+			success:function(data){
+				$("#refreshPage").submit();						
+			}
+		})	
 	}
 </script>

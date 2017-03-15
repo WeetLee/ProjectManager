@@ -194,6 +194,8 @@
 			}
 			$sum += $this->getCompletionTaches();//Taches completion
 			$count++;
+			$sum += $this->getCompletionTests();//Taches completion
+			$count++;
 			/*$sum += $this->getCompletionByStatut();
 			$count++;*/
 			if($sum != 0)
