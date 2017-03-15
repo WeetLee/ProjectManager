@@ -83,15 +83,15 @@
 					if($index % 4 == 0){
 						echo "<tr>";
 					}
-						echo "<td class='clickable'>";
+						echo "<td>";
 							?>
-								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+								<table class='tableauInterneFonctionnalite'>
 									<tr>
 										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
 									</tr>
 									<tr>
 										<td>
-											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 										</td>
 										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
 											<?php 
@@ -102,6 +102,9 @@
 										</td>
 									</tr>
 								</table>
+								<div style="position:relative; right : 5px; text-align:right;">
+									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
+								</div>
 							<?php
 							
 						echo "</td>";
@@ -120,15 +123,15 @@
 					if($index % 2 == 0){
 						echo "<tr>";
 					}
-						echo "<td class='clickable'>";
+						echo "<td>";
 							?>
-								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+								<table class='tableauInterneFonctionnalite'>
 									<tr>
 										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
 									</tr>
 									<tr>
 										<td>
-											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 										</td>
 										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
 											<?php 
@@ -139,6 +142,9 @@
 										</td>
 									</tr>
 								</table>
+								<div style="position:relative; right : 5px; text-align:right;">
+									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
+								</div>
 							<?php
 							
 						echo "</td>";
@@ -155,15 +161,15 @@
 				$index = 0;
 				foreach($listeFonctionnalites as $projet){
 					echo "<tr>";
-						echo "<td class='clickable'>";
+						echo "<td>";
 							?>
-								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+								<table class='tableauInterneFonctionnalite'>
 									<tr>
 										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
 									</tr>
 									<tr>
 										<td>
-											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 										</td>
 										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
 											<?php 
@@ -174,6 +180,9 @@
 										</td>
 									</tr>
 								</table>
+								<div style="position:relative; right : 5px; text-align:right;">
+									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
+								</div>
 							<?php
 							
 						echo "</td>";
