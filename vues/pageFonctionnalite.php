@@ -85,9 +85,25 @@
 					}
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+									<tr>
+										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+										</td>
+										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
+											<?php 
+												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
+											?>
+											<hr/>
+											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
+										</td>
+									</tr>
+								</table>
 							<?php
-							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
+							
 						echo "</td>";
 					if($index % 4 == 3 || $index == sizeof($listeFonctionnalites)-1){
 						echo "</tr>";
@@ -106,9 +122,25 @@
 					}
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+									<tr>
+										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+										</td>
+										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
+											<?php 
+												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
+											?>
+											<hr/>
+											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
+										</td>
+									</tr>
+								</table>
 							<?php
-							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
+							
 						echo "</td>";
 					if($index % 2 == 1 || $index == sizeof($listeFonctionnalites)-1){
 						echo "</tr>";
@@ -125,9 +157,25 @@
 					echo "<tr>";
 						echo "<td class='clickable'>";
 							?>
-								<div class="gaugeMeter clickable" onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)' id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+								<table class='tableauInterneFonctionnalite' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'>
+									<tr>
+										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="gaugeMeter clickable"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+										</td>
+										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
+											<?php 
+												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
+											?>
+											<hr/>
+											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
+										</td>
+									</tr>
+								</table>
 							<?php
-							echo "<br/><span onclick='javascript:changeProjet(\"".$sousFonctionnalite->getId()."\")'>".$sousFonctionnalite->getNom()."</span>";
+							
 						echo "</td>";
 					echo "</tr>";
 					$index++;

@@ -22,7 +22,7 @@
 	<div id="maPage" class="mainPage">
 		<h1>Sélectionnez votre projet</h1>
 		<form id="formulaireRedirectProjet" method="post" action="vues/pageBacklog.php">
-			<table id="tableauLargeSize" class="tableauProjet">
+			<table id="tableauLargeSize" class="tableauFullPlace">
 				<?php
 					foreach($listeProjets as $projet){
 						if($index % 4 == 0){
@@ -40,7 +40,7 @@
 				?> 
 			</table>
 
-			<table id="tableauMediumSize" class="tableauProjet">
+			<table id="tableauMediumSize" class="tableauFullPlace">
 				<?php
 					$index = 0;
 					foreach($listeProjets as $projet){
@@ -59,7 +59,7 @@
 				?> 
 			</table>
 
-			<table id="tableauLittleSize" class="tableauProjet">
+			<table id="tableauLittleSize" class="tableauFullPlace">
 				<?php
 					$index = 0;
 					foreach($listeProjets as $projet){

@@ -32,7 +32,7 @@
 						echo $formatFr;
 					}
 				echo "</td>";
-				echo "<td style='width : 200px;'><img src='../img/play.png' onclick='lancerTest(\"".$unTest->getId()."\", \"live\")' width='25px' title='Test live'/> <img src='../img/OK.png' onclick='lancerTest(\"".$unTest->getId()."\", \"OK\")' width='20px' style='margin-left:20px;' title='Test OK'/><img src='../img/KO.png' onclick='lancerTest(\"".$unTest->getId()."\", \"KO\")' width='20px' style='margin-left:20px;' title='Test KO'/></td>";
+				echo "<td style='width : 200px;'><img src='../img/play.png' onclick='lancerTest(\"".$unTest->getId()."\", \"live\")' width='25px' title='Test live' class='clickable'/> <img src='../img/OK.png' onclick='lancerTest(\"".$unTest->getId()."\", \"OK\")' width='20px' style='margin-left:20px;' title='Test OK' class='clickable'/><img src='../img/KO.png' onclick='lancerTest(\"".$unTest->getId()."\", \"KO\")' width='20px' style='margin-left:20px;' title='Test KO' class='clickable'/></td>";
 			echo "</tr>";
 
 			$index++;
