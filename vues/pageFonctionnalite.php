@@ -45,11 +45,11 @@
 	<a class="linkAriane btn" href="../index.php">Projets</a> 
 	<?php 
 	 	if($currentFonction != "default"){
-			echo ' > <span class="clickable linkAriane btn" onclick="javascript:changerPage(\'default\')">'.$monProjet->getNom().'</span>'; 
+			echo ' > <span class="clickable btn" onclick="javascript:changerPage(\'default\')">'.$monProjet->getNom().'</span>'; 
 			$tailleFil = sizeof($fil);
 			$index = 0;
 			while($index < $tailleFil-1){
-				echo ' > <span class="clickable linkAriane btn" onclick="javascript:changerPage('.$fil[$index][0].')">'.$fil[$index][1].'</span>'; 	
+				echo ' > <span class="clickable btn" onclick="javascript:changerPage('.$fil[$index][0].')">'.$fil[$index][1].'</span>'; 	
 				$index++;
 			}
 			echo ' > <span class="lastFonctionnality">'.$fil[$tailleFil-1][1].'</span>';
@@ -75,122 +75,37 @@
 	<form action="#" method="post" id="navigateFonctionnalite">
 		<input type='hidden' name='project' value="<?php echo $id; ?>"/>
 		<input type="hidden" id="navigateFonctionnality" name="fonctionnalite" value="default"/>
-
-		<table id="tableauLargeSize" class="tableauProjet tableauFonctionnalite">
-			<?php
-				$index = 0;
-				foreach($listeFonctionnalites as $sousFonctionnalite){
-					if($index % 4 == 0){
-						echo "<tr>";
-					}
-						echo "<td>";
-							?>
-								<table class='tableauInterneFonctionnalite'>
-									<tr>
-										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
-										</td>
-										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
-											<?php 
-												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
-											?>
-											<hr/>
-											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
-										</td>
-									</tr>
-								</table>
-								<div style="position:relative; right : 5px; text-align:right;">
-									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
-								</div>
-							<?php
-							
-						echo "</td>";
-					if($index % 4 == 3 || $index == sizeof($listeFonctionnalites)-1){
-						echo "</tr>";
-					}
-					$index++;
-				}
-			?> 
-		</table>
-
-		<table id="tableauMediumSize" class="tableauProjet tableauFonctionnalite">
-			<?php
-				$index = 0;
-				foreach($listeFonctionnalites as $projet){
-					if($index % 2 == 0){
-						echo "<tr>";
-					}
-						echo "<td>";
-							?>
-								<table class='tableauInterneFonctionnalite'>
-									<tr>
-										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
-										</td>
-										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
-											<?php 
-												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
-											?>
-											<hr/>
-											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
-										</td>
-									</tr>
-								</table>
-								<div style="position:relative; right : 5px; text-align:right;">
-									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
-								</div>
-							<?php
-							
-						echo "</td>";
-					if($index % 2 == 1 || $index == sizeof($listeFonctionnalites)-1){
-						echo "</tr>";
-					}
-					$index++;
-				}
-			?> 
-		</table>
-
-		<table id="tableauLittleSize" class="tableauProjet tableauFonctionnalite">
-			<?php
-				$index = 0;
-				foreach($listeFonctionnalites as $projet){
-					echo "<tr>";
-						echo "<td>";
-							?>
-								<table class='tableauInterneFonctionnalite'>
-									<tr>
-										<td colspan="2"><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
-										</td>
-										<td style="padding-right : 10px; text-align:left; vertical-align:top; padding-top:10px;">
-											<?php 
-												echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
-											?>
-											<hr/>
-											<img class="avatar" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
-										</td>
-									</tr>
-								</table>
-								<div style="position:relative; right : 5px; text-align:right;">
-									<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
-								</div>
-							<?php
-							
-						echo "</td>";
-					echo "</tr>";
-					$index++;
-				}
-			?> 
-		</table>
+		
+		<div style="width:100%; text-align:left;">
+		<?php
+			foreach($listeFonctionnalites as $sousFonctionnalite){
+				echo "<div class='panelFonctionnalite'>";
+						?>
+							<table style="width:100%;">
+								<tr>
+									<td colspan="2" style='text-align:center;'><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
+								</tr>
+								<tr>
+									<td>
+										<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
+									</td>
+									<td class="justifyTd">
+										<?php 
+											echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
+										?>
+										<hr/>
+										<img class="avatar" title="<?php echo $sousFonctionnalite->getAffectation(); ?>" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
+									</td>
+								</tr>
+							</table>
+							<div style="position:relative; right : 5px; text-align:right;">
+								<img class="clickable" style="width : 30px;" src="../img/consulter.png" title='Consulter la fonctionnalité' onclick='javascript:changeProjet(<?php echo $sousFonctionnalite->getId(); ?>)'/>
+							</div>
+						<?php
+				echo "</div>";
+			}
+		?> 
+		</div>
 	</form>
 	<form id="ajoutFonctionnalite">
 		<table style="margin:auto;">

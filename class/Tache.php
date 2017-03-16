@@ -74,7 +74,7 @@
 		}
 		public function getAffectationId(){
 			if($this->affectation == "")
-				return "";
+				return NULL;
 			else
 				return $this->affectation->getId();
 		}

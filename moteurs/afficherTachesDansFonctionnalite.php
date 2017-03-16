@@ -68,6 +68,7 @@
 				echo "<td id='duree_".$uneTache->getId()."' class='modifierDureePrevi'>".$uneTache->getDureePrevisionnelle()." h</td>";
 				echo "<td>";
 					echo "<select onchange='changerAffectation(this.value, ".$uneTache->getId().")' class='typeTache'>";
+							echo "<option value=''>    </option>";
 						$tousLesUtilisateurs = $DAO->getUtilisateursByProjectId($idProjet);
 						foreach($tousLesUtilisateurs as $user){
 							if($user->getId() == $uneTache->getAffectationId())
