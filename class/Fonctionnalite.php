@@ -70,6 +70,10 @@
 			return $this->nom;
 		}
 
+		public function setNom($nom){
+			$this->nom = $nom;
+		}
+		
 		public function getParentNom(){
 			return $this->fonctionnaliteParent->getNom();
 		}
@@ -106,6 +110,10 @@
 			return $this->commentaire;
 		}
 
+		public function setCommentaire($commentaire){
+			$this->commentaire = $commentaire;
+		}
+		
 		public function getTaches(){
 			return $this->taches;
 		}

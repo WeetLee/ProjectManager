@@ -333,7 +333,6 @@ button:focus {
 /* grid item element and full content element styles */
 .title {
   margin: 0;
-  padding-top:5px;
   font-family: "Playfair Display", serif;
   text-align: center;
   font-size: 15px;
@@ -463,8 +462,10 @@ button:focus {
 .meta__avatar {
   display: block;
   border-radius: 50%;
-  margin: 1em auto;
-  width : 50px;
+  margin: auto;
+  width : 40px;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
 .meta__avatar__type {

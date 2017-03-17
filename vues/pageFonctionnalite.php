@@ -83,16 +83,27 @@
 						?>
 							<table style="width:100%;">
 								<tr>
-									<td colspan="2" style='text-align:center;'><?php echo "<span>".$sousFonctionnalite->getNom()."</span>"; ?><hr/></td>
+									<td colspan="2" style='text-align:center;'  class='modifierNomFonctionnalite clickable' id='<?php echo "nomFonctionnalite_".$sousFonctionnalite->getId();?>'><?php echo $sousFonctionnalite->getNom(); ?></td>
 								</tr>
 								<tr>
-									<td>
+									<td colspan="2"><hr/></td>
+								</tr>
+								<tr>
+									<td rowspan="2">
 										<div class="gaugeMeter"  id="PreviewGaugeMeter_<?php echo $sousFonctionnalite->getId(); ?>" data-percent="<?php echo $sousFonctionnalite->getCompletion(); ?>" data-append="%" data-size="180" data-theme="Red-Gold-Green" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="" data-label_color="#FFF" data-stripe="2"></div>
 									</td>
 									<td class="justifyTd">
-										<?php 
-											echo "<span style='font-size:13px;'>".$sousFonctionnalite->getCommentaire()."</span>"; 
+										<div class="clickable modifierDescriptionFonctionnalite" id='<?php echo "descriptionFonctionnalite_".$sousFonctionnalite->getId();?>'><?php 
+											if($sousFonctionnalite->getCommentaire()!=''){
+												echo $sousFonctionnalite->getCommentaire();
+											}else{
+												echo "[Aucun commentaire]";
+											}											
 										?>
+										</div>
+									</td>
+								<tr>
+									<td>
 										<hr/>
 										<img class="avatar" title="<?php echo $sousFonctionnalite->getAffectation(); ?>" src="../img/collab/<?php echo $sousFonctionnalite->getAffectation();?>.png" alt="<?php echo $sousFonctionnalite->getAffectation();?>.png" />
 									</td>
@@ -164,6 +175,20 @@
 		}
 	?>
 	<div id="dialog" title="Erreur"></div>
+	<div id="dialogChgtNomFonctionnalite" title="Changer le nom"></div>
+	<div id="dialogChgtDescriptionFonctionnalite" title="Changer la description"></div>
+	<div id="myTextNomFonctionnalite" style="display:none">
+		<input type="hidden" name="nomModifFonctionnaliteId" id="nomModifFonctionnaliteId"/>
+		<label for='nomModifFonctionnalite'>Nom :</label>
+		<input type='text' class="clickable" name='nomModifFonctionnalite' id='nomModifFonctionnalite' value=''><br/>
+		<input class="boutonAjout" type='button' value="Modifier" onclick="javascript:updateNomFonctionnalite();" style="margin-top : 10px; margin-left : 25px;">
+	</div>
+	<div id="myTextDescriptionFonctionnalite" style="display:none">
+		<input type="hidden" name="descriptionModifFonctionnaliteId" id="descriptionModifFonctionnaliteId"/>
+		<label for='descriptionModifFonctionnalite'>Description :</label>
+		<textarea rows="4" cols="50" class="clickable" name='descriptionModifFonctionnalite' id='descriptionModifFonctionnalite'></textarea><br/>
+		<input class="boutonAjout" type='button' value="Modifier" onclick="javascript:updateDescriptionFonctionnalite();" style="margin-top : 10px; margin-left : 25px;">
+	</div>
 </div>
 </body>
 </html>
@@ -280,5 +305,71 @@
 				}
 			})		
 		}
+	}
+	
+	$(function() {
+	    var divNom = $( ".modifierNomFonctionnalite" );
+		$(divNom).dblclick(function(event) {    
+			var contenuTd = $("#"+this.id).html();
+			var nomTd = this.id;
+			var splitNom = nomTd.split("_");
+			var mytext = $('#myTextNomFonctionnalite').html();
+
+		    $('#dialogChgtNomFonctionnalite').html(mytext);    
+	        $("#dialogChgtNomFonctionnalite").dialog({                   
+	            width: 500,
+	            modal: true
+	        });
+	        document.getElementsByName("nomModifFonctionnalite")[0].value = contenuTd;  
+		    document.getElementsByName("nomModifFonctionnaliteId")[0].value = splitNom[1]; 
+	        document.getElementsByName("nomModifFonctionnalite")[1].value = contenuTd;  
+		    document.getElementsByName("nomModifFonctionnaliteId")[1].value = splitNom[1]; 
+	    });
+		var divDescription = $( ".modifierDescriptionFonctionnalite" );
+		$(divDescription).dblclick(function(event) {    
+			var contenuTd = $("#"+this.id).html();
+			var nomTd = this.id;
+			var splitNom = nomTd.split("_");
+			var mytext = $('#myTextDescriptionFonctionnalite').html();
+
+		    $('#dialogChgtDescriptionFonctionnalite').html(mytext);    
+	        $("#dialogChgtDescriptionFonctionnalite").dialog({                   
+	            width: 500,
+	            modal: true
+	        });
+	        document.getElementsByName("descriptionModifFonctionnalite")[0].value = contenuTd.trim();  
+		    document.getElementsByName("descriptionModifFonctionnaliteId")[0].value = splitNom[1]; 
+	        document.getElementsByName("descriptionModifFonctionnalite")[1].value = contenuTd.trim();  
+		    document.getElementsByName("descriptionModifFonctionnaliteId")[1].value = splitNom[1]; 
+	    });
+	});
+
+	function updateNomFonctionnalite(){
+		var idFonctionnalite = document.getElementsByName("nomModifFonctionnaliteId")[1].value; 
+		var nouveauNom = document.getElementsByName("nomModifFonctionnalite")[1].value;
+		var idFonctionnaliteParent = $("#fonctionnaliteId").val();
+		var idProjet = $("#projetId").val();
+		$.ajax({
+			url:"../moteurs/updateFonctionnalite.php",
+			method:"POST",
+			data:{idFonctionnalite:idFonctionnalite,idFonctionnaliteParent:idFonctionnaliteParent,idProjet:idProjet,nouveau:nouveauNom, type:"Nom"},
+			success:function(data){
+				$("#refreshPage").submit();						
+			}
+		})		
+	}
+	function updateDescriptionFonctionnalite(){
+		var idFonctionnalite = document.getElementsByName("descriptionModifFonctionnaliteId")[1].value; 
+		var nouveauNom = document.getElementsByName("descriptionModifFonctionnalite")[1].value;
+		var idFonctionnaliteParent = $("#fonctionnaliteId").val();
+		var idProjet = $("#projetId").val();
+		$.ajax({
+			url:"../moteurs/updateFonctionnalite.php",
+			method:"POST",
+			data:{idFonctionnalite:idFonctionnalite,idFonctionnaliteParent:idFonctionnaliteParent,idProjet:idProjet,nouveau:nouveauNom, type:"Description"},
+			success:function(data){
+				$("#refreshPage").submit();						
+			}
+		})		
 	}
 </script>
