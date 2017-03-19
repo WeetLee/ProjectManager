@@ -49,7 +49,7 @@
 		public function getUtilisateursByProjectId($id) {
 			global $bdd;
 			$liste = array();
-			$query=$bdd->prepare('SELECT * FROM utilisateurProjet where idProjet=:id');
+			$query=$bdd->prepare('SELECT * FROM UtilisateurProjet where idProjet=:id');
 			$query->bindValue(':id',$id, PDO::PARAM_INT);
 			$query->execute();
 			while($ligne = $query->fetch()){
@@ -214,13 +214,13 @@
 		public function saveProjet($projet){
 			global $bdd;
 			if($this->getProjetById($projet->getId())->getId() !== null){
-				$query=$bdd->prepare("UPDATE projet SET nom=:nom, image=:image WHERE id=:id");
+				$query=$bdd->prepare("UPDATE Projet SET nom=:nom, image=:image WHERE id=:id");
 				$query->bindValue(":nom", $projet->getNom(), PDO::PARAM_STR);
 				$query->bindValue(":image", $projet->getImage(), PDO::PARAM_STR);
 				$query->bindValue(":id", $projet->getId(), PDO::PARAM_INT);
 				$query->execute();
 			}else{
-				$query=$bdd->prepare("INSERT INTO projet (nom, image) VALUES (:nom,:image)");
+				$query=$bdd->prepare("INSERT INTO Pprojet (nom, image) VALUES (:nom,:image)");
 				$query->bindValue(":nom", $projet->getNom(), PDO::PARAM_STR);
 				$query->bindValue(":image", $projet->getImage(), PDO::PARAM_STR);
 				$query->execute();
@@ -271,14 +271,14 @@
 		public function saveTest($test, $idFonctionnalite = 0){
 			global $bdd;
 			if($this->getTestById($test->getId())->getId() !== null){
-				$query=$bdd->prepare("UPDATE test SET nom=:nom, statut=:statut, dateDerniereExecution=:dateDerniereExecution WHERE id=:id");
+				$query=$bdd->prepare("UPDATE Test SET nom=:nom, statut=:statut, dateDerniereExecution=:dateDerniereExecution WHERE id=:id");
 				$query->bindValue(":nom", $test->getNom(), PDO::PARAM_STR);
 				$query->bindValue(":statut", $test->getStatut(), PDO::PARAM_STR);
 				$query->bindValue(":dateDerniereExecution", $test->getDateExec(), PDO::PARAM_STR);
 				$query->bindValue(":id", $test->getId(), PDO::PARAM_INT);
 				$query->execute();
 			}else{
-				$query=$bdd->prepare("INSERT INTO test(nom, statut, dateDerniereExecution, idFonctionnalite) VALUES (:nom, :statut, :dateDerniereExecution, :idFonctionnalite)");
+				$query=$bdd->prepare("INSERT INTO Test(nom, statut, dateDerniereExecution, idFonctionnalite) VALUES (:nom, :statut, :dateDerniereExecution, :idFonctionnalite)");
 				$query->bindValue(":nom", $test->getNom(), PDO::PARAM_STR);
 				$query->bindValue(":statut", $test->getStatut(), PDO::PARAM_STR);
 				$query->bindValue(":dateDerniereExecution", $test->getDateExec(), PDO::PARAM_STR);
